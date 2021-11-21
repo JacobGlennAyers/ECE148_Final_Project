@@ -34,7 +34,7 @@ while(artist != "end"):
 	# closing the text file
 	f1.close()
 	# The case where a change has been detected
-	if (prev_artist != artist):
+	if (artist != prev_artist and artist != "None/"):
 		prev_artist = artist
 		# Ending the prior song, while handling the case of the first song
 		if process is not None:
