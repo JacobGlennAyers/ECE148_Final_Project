@@ -22,7 +22,7 @@ with open(sys.argv[2],'w') as f:
 
 
 # Reading from the proper webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 # Reading in the pytorch model passed in by the user
 model = torch.load(sys.argv[1])
 data_transform = transforms.Compose([
@@ -32,8 +32,8 @@ data_transform = transforms.Compose([
     transforms.Normalize([0.485,0.456,0.406],[.229,.224,.225])
 ])
 
-class_list = ["JohnLennon","FrankSinatra","None","Beethoven"]
-threshold = 0.99
+class_list = ["Beethoven","FrankSinatra","FreddieMercury","JohnLennon","None"]
+threshold = 0.90
 class_prediction = "None"
 # Infinite loop
 while(True):
@@ -54,16 +54,17 @@ while(True):
 	# if that prediction is above a threshold, then change the current prediction
 	if test_predicts[0][int(pred[0])] >= threshold:
 		class_prediction = class_list[int(pred[0])]
+		print("Current Class Prediction:",class_prediction)
 		# writing the class prediction to the file
-		
+
 		with open(sys.argv[2],'a') as f:
 			f.write(class_prediction+'\n')
 		
-	
+	# commenting this section out for the sake of the final project that doesn't have a GUI
 	# writing out the prediction to the screen
-	cv2.putText(frame,class_prediction,(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),2,cv2.LINE_AA)
+	#cv2.putText(frame,class_prediction,(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),2,cv2.LINE_AA)
         # Displaying the image as well as its prediction
-	cv2.imshow('frame',frame)
+	#cv2.imshow('frame',frame)
 	
 	
 

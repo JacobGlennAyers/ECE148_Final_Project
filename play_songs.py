@@ -4,12 +4,19 @@ import os, random
 
 #print(random.choice(os.listdir("../songs/JohnLennon/")))
 
-song_dir = "../songs/"
+song_dir = "/home/jetson/projects/final/songs/"
 text_file = "../predictions1.txt"
 # function that runs a background process to play the relevant mp3
 # returns the process so that you can shut it down at a designated time.
+# commenting out since mpg123 -q doesn't work for jetson nano
+#def play_mp3(path):
+#	return subprocess.Popen(['mpg123', '-q',path+random.choice(os.listdir(path))])
+# might have to change around the hw#,# bit on this function since it will likely change without the HDMI plugged in
+#def play_mp3(path):
+#	return subprocess.Popen(['gst-play-1.0','file:/home/jetson/projects/final/songs/JohnLennon/JohnLennon0.mp3','--audiosink=alsasink device=hw:2,0'])
 def play_mp3(path):
-	return subprocess.Popen(['mpg123', '-q',path+random.choice(os.listdir(path))])
+	return subprocess.Popen(['gst-play-1.0','file:'+path+random.choice(os.listdir(path)),'--audiosink=alsasink device=hw:4,0'])
+# 'file:'+path_random.choice(os.listdir(path))
 #f1 = open(text_file,"r")
 #folder = f1.readlines()[-1]
 #folder = folder[:-1] + '/'

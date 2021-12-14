@@ -32,7 +32,7 @@ data_transforms = {
     ]),
 }
 # Change this based on the data being worked on
-data_dir = '../test_images'
+data_dir = '../images'
 
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
